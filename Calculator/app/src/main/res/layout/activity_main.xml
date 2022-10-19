@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingLeft="30dp"
+    android:paddingRight="30dp"
+    android:paddingTop="10dp">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:text="房贷车贷计算器"
+        android:textAlignment="center"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <TextView
+        android:id="@+id/mortgageTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/title"
+        android:layout_marginTop="18dp"
+        android:text="贷款总额（万元）"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/mortgageEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/mortgageTextView"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:hint="请输入您的贷款金额"
+        android:inputType="number"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="100"
+        android:textAlignment="viewStart"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/timeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/mortgageEditText"
+        android:layout_marginTop="18dp"
+        android:text="贷款时间（年）："
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/timeEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/timeTextView"
+        android:layout_alignStart="@+id/timeTextView"
+        android:layout_below="@+id/timeTextView"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:hint="请输入您的贷款时间"
+        android:inputType="number"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="30"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/interestTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/timeEditText"
+        android:layout_marginTop="18dp"
+        android:text="贷款利率（%）："
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/interestEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/interestTextView"
+        android:layout_alignStart="@+id/interestTextView"
+        android:layout_below="@+id/interestTextView"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:hint="请输入贷款利率"
+        android:inputType="numberDecimal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="4.9"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/aheadTimeTextView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/interestEditText"
+        android:layout_alignStart="@+id/interestEditText"
+        android:layout_below="@+id/interestEditText"
+        android:layout_marginTop="18dp"
+        android:text="第几年还完："
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/aheadTimeEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/aheadTimeTextView"
+        android:layout_alignStart="@+id/aheadTimeTextView"
+        android:layout_below="@+id/aheadTimeTextView"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:hint="请输入时间"
+        android:inputType="number"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:text="0"
+        android:textAlignment="textStart"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <Button
+        android:id="@+id/calButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/aheadTimeEditText"
+        android:layout_marginTop="31dp"
+        android:background="@drawable/shape"
+        android:text="开始计算"
+        android:textColor="@android:color/white"
+        android:textSize="18sp" />
+
+</RelativeLayout>
