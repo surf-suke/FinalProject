@@ -86,7 +86,7 @@ public class Calculator {
             if ("0123456789.AbCdEF".indexOf(str.charAt(i)) >= 0) // 遇到数字字符的情况直接入队
             {
                 s = "";// 作为承接字符，每次开始时都要清空
-                for (; i < str.length() && "0123456789.AbCdEF—".indexOf(str.charAt(i)) >= 0; i++) {
+                for (; i < str.length() && "0123456789.AbCdEF".indexOf(str.charAt(i)) >= 0; i++) {
                     s = s + str.charAt(i);
                 }
                 i--;
@@ -116,7 +116,13 @@ public class Calculator {
                     postQueue[j] = opStack[top] + "";
                     j++;
                     opStack[top] = str.charAt(i);
-                } else if("+-".indexOf(opStack[top])>=0&&"+-".indexOf(str.charAt(i))>=0)
+                }
+                else if ("—".indexOf(opStack[top]) >= 0) {
+                    postQueue[j] = opStack[top] + "";
+                    j++;
+                    opStack[top] = str.charAt(i);
+                }
+                else if("+-".indexOf(opStack[top])>=0&&"+-".indexOf(str.charAt(i))>=0)
                 {
                     postQueue[j] = opStack[top] + "";
                     j++;

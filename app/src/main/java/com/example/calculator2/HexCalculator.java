@@ -103,6 +103,11 @@ public class HexCalculator {
     //十进制转十六进制
     public  String DecToHex(String str)
     {
+        int IfMinus=0;
+        if(str.contains("-")) {
+            str = str.substring(1, str.length());
+            IfMinus=1;
+        }
         int x=(int)Double.parseDouble(str);
         double y=Double.parseDouble(str)-x;
         double q=y;
@@ -147,7 +152,10 @@ public class HexCalculator {
         }
         else
             result = r1 + r2;
-        return result;
+        if(IfMinus==0)
+            return result;
+        else
+            return "-"+result;
 
     }
 
@@ -163,7 +171,7 @@ public class HexCalculator {
             if ("0123456789.ABCDEF".indexOf(str.charAt(i)) >= 0) // 遇到数字字符的情况直接入队
             {
                 s = "";// 作为承接字符，每次开始时都要清空
-                for (; i < str.length() && "0123456789.ABCDEF—".indexOf(str.charAt(i)) >= 0; i++) {
+                for (; i < str.length() && "0123456789.ABCDEF".indexOf(str.charAt(i)) >= 0; i++) {
                     s = s + str.charAt(i);
                 }
                 i--;
@@ -193,7 +201,13 @@ public class HexCalculator {
                     postQueue[j] = opStack[top] + "";
                     j++;
                     opStack[top] = str.charAt(i);
-                } else if("+-".indexOf(opStack[top])>=0&&"+-".indexOf(str.charAt(i))>=0)
+                }
+                else if ("—".indexOf(opStack[top]) >= 0) {
+                    postQueue[j] = opStack[top] + "";
+                    j++;
+                    opStack[top] = str.charAt(i);
+                }
+                else if("+-".indexOf(opStack[top])>=0&&"+-".indexOf(str.charAt(i))>=0)
                 {
                     postQueue[j] = opStack[top] + "";
                     j++;
@@ -289,7 +303,7 @@ public class HexCalculator {
 
 
         }
-        return DecToHex(Result[Top]);
+            return DecToHex(Result[Top]);
     }
 
 }
