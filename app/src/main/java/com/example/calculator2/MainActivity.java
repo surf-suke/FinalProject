@@ -22,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     com.example.calculator2.Calculator calculator;
 
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -62,19 +63,227 @@ public class MainActivity extends AppCompatActivity {
         Button t_pow = (Button) findViewById(R.id.pow);
 
 
+
+
         calculator = new Calculator();
         Toast t = Toast.makeText(getApplicationContext(), "错误输入", Toast.LENGTH_LONG);
+
 
         View.OnClickListener buttonlistener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+
+                t_add.setEnabled(true);
+                t_sub.setEnabled(true);
+                t_multi.setEnabled(true);
+                t_div.setEnabled(true);
+                t_surplus.setEnabled(true);
+                t_dot.setEnabled(true);
+                t_sqrt.setEnabled(true);
+                t_minus.setEnabled(true);
+                t_pow.setEnabled(true);
+                t_leftbr.setEnabled(true);
+                t_rightbr.setEnabled(true);
+                t_equal.setEnabled(true);
+
+                t_num0.setEnabled(true);
+                t_num1.setEnabled(true);
+                t_num2.setEnabled(true);
+                t_num3.setEnabled(true);
+                t_num4.setEnabled(true);
+                t_num5.setEnabled(true);
+                t_num6.setEnabled(true);
+                t_num7.setEnabled(true);
+                t_num8.setEnabled(true);
+                t_num9.setEnabled(true);
+
                 String show = ((Button) view).getText().toString();
                 calculator.process(show);
                 textView1.setText(calculator.getStr());
                 String str= calculator.getStr();
+
+
                 textView_res.setText(calculator.getSres());
 
+
                 String res = calculator.getSres();
+
+
+                if(str.length()!=0&&"*÷+-%".indexOf(str.charAt(str.length()-1))>=0)
+                {
+                    t_add.setEnabled(false);
+                    t_sub.setEnabled(false);
+                    t_multi.setEnabled(false);
+                    t_div.setEnabled(false);
+                    t_surplus.setEnabled(false);
+                    t_dot.setEnabled(false);
+                    t_pow.setEnabled(false);
+                    t_rightbr.setEnabled(false);
+                    t_equal.setEnabled(false);
+
+
+                }
+                if(str.length()!=0&&"√".indexOf(str.charAt(str.length()-1))>=0)
+                {
+                    t_add.setEnabled(false);
+                    t_sub.setEnabled(false);
+                    t_multi.setEnabled(false);
+                    t_div.setEnabled(false);
+                    t_surplus.setEnabled(false);
+                    t_dot.setEnabled(false);
+                    t_sqrt.setEnabled(false);
+                    t_pow.setEnabled(false);
+                    t_rightbr.setEnabled(false);
+                    t_equal.setEnabled(false);
+
+
+                }
+                if(str.length()!=0&&"²".indexOf(str.charAt(str.length()-1))>=0)
+                {
+
+                    t_dot.setEnabled(false);
+                    t_pow.setEnabled(false);
+                    t_sqrt.setEnabled(false);
+                    t_leftbr.setEnabled(false);
+                    t_rightbr.setEnabled(false);
+                    t_minus.setEnabled(false);
+
+                    t_num0.setEnabled(false);
+                    t_num1.setEnabled(false);
+                    t_num2.setEnabled(false);
+                    t_num3.setEnabled(false);
+                    t_num4.setEnabled(false);
+                    t_num5.setEnabled(false);
+                    t_num6.setEnabled(false);
+                    t_num7.setEnabled(false);
+                    t_num8.setEnabled(false);
+                    t_num9.setEnabled(false);
+
+                }
+                if(str.length()!=0&&"—".indexOf(str.charAt(str.length()-1))>=0)
+                {
+                    t_add.setEnabled(false);
+                    t_sub.setEnabled(false);
+                    t_multi.setEnabled(false);
+                    t_div.setEnabled(false);
+                    t_surplus.setEnabled(false);
+                    t_dot.setEnabled(false);
+                    t_pow.setEnabled(false);
+                    t_rightbr.setEnabled(false);
+                    t_equal.setEnabled(false);
+
+
+                }
+                if(str.length()!=0&&".".indexOf(str.charAt(str.length()-1))>=0)
+                {
+                    t_add.setEnabled(false);
+                    t_sub.setEnabled(false);
+                    t_multi.setEnabled(false);
+                    t_div.setEnabled(false);
+                    t_surplus.setEnabled(false);
+                    t_dot.setEnabled(false);
+                    t_pow.setEnabled(false);
+                    t_sqrt.setEnabled(false);
+                    t_leftbr.setEnabled(false);
+                    t_rightbr.setEnabled(false);
+                    t_minus.setEnabled(false);
+                    t_equal.setEnabled(false);
+
+
+                }
+                if(str.length()!=0&&"(".indexOf(str.charAt(str.length()-1))>=0)
+                {
+
+                    t_add.setEnabled(false);
+                    t_sub.setEnabled(false);
+                    t_multi.setEnabled(false);
+                    t_div.setEnabled(false);
+                    t_surplus.setEnabled(false);
+                    t_dot.setEnabled(false);
+                    t_pow.setEnabled(false);
+                    t_rightbr.setEnabled(false);
+                    t_equal.setEnabled(false);
+
+
+                }
+                if(str.length()!=0&&")".indexOf(str.charAt(str.length()-1))>=0)
+                {
+
+                    t_dot.setEnabled(false);
+                    t_sqrt.setEnabled(false);
+                    t_minus.setEnabled(false);
+                    t_leftbr.setEnabled(false);
+
+                    t_num0.setEnabled(false);
+                    t_num1.setEnabled(false);
+                    t_num2.setEnabled(false);
+                    t_num3.setEnabled(false);
+                    t_num4.setEnabled(false);
+                    t_num5.setEnabled(false);
+                    t_num6.setEnabled(false);
+                    t_num7.setEnabled(false);
+                    t_num8.setEnabled(false);
+                    t_num9.setEnabled(false);
+
+
+                }
+                if(str.length()!=0&&"123456789".indexOf(str.charAt(str.length()-1))>=0)
+                {
+
+                    t_sqrt.setEnabled(false);
+                    t_leftbr.setEnabled(false);
+                    t_minus.setEnabled(false);
+                }
+
+//                if(str.length()!=0&&"0".indexOf(str.charAt(str.length()-1))>=0)
+//                {
+//
+//                    t_sqrt.setEnabled(false);
+//                    t_minus.setEnabled(false);
+//                    t_leftbr.setEnabled(false);
+//
+//                    t_num0.setEnabled(false);
+//                    t_num1.setEnabled(false);
+//                    t_num2.setEnabled(false);
+//                    t_num3.setEnabled(false);
+//                    t_num4.setEnabled(false);
+//                    t_num5.setEnabled(false);
+//                    t_num6.setEnabled(false);
+//                    t_num7.setEnabled(false);
+//                    t_num8.setEnabled(false);
+//                    t_num9.setEnabled(false);
+//                }
+
+                if(str.length()==0||res.equals("ERROR"))
+                {
+
+                    t_add.setEnabled(true);
+                    t_sub.setEnabled(true);
+                    t_multi.setEnabled(true);
+                    t_div.setEnabled(true);
+                    t_surplus.setEnabled(true);
+                    t_dot.setEnabled(true);
+                    t_sqrt.setEnabled(true);
+                    t_minus.setEnabled(true);
+                    t_pow.setSaveEnabled(true);
+                    t_leftbr.setEnabled(true);
+                    t_rightbr.setEnabled(true);
+                    t_equal.setEnabled(true);
+
+                    t_num0.setEnabled(true);
+                    t_num1.setEnabled(true);
+                    t_num2.setEnabled(true);
+                    t_num3.setEnabled(true);
+                    t_num4.setEnabled(true);
+                    t_num5.setEnabled(true);
+                    t_num6.setEnabled(true);
+                    t_num7.setEnabled(true);
+                    t_num8.setEnabled(true);
+                    t_num9.setEnabled(true);
+                }
+
+
                 if (res.equals("ERROR")) {
                     t.show();
                     calculator.clear();
@@ -135,6 +344,8 @@ public class MainActivity extends AppCompatActivity {
         }
         return true;
     }
+
+
 }
 
 

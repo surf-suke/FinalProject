@@ -19,7 +19,13 @@ public class HexCalculator {
             }
             else if(show.equals("←"))
             {
-                str=str.substring(0,str.length()-1);
+                if(str.length()==0)
+                    str = "";
+                else
+                {
+                    str = str.substring(0, str.length() - 1);
+                    res = "";
+                }
             }
             else if(show.equals("—"))
             {
@@ -160,7 +166,6 @@ public class HexCalculator {
     }
 
 
-    //将中缀表达式转换为后缀表达式
     private String[] logic(String str) {
         String s = "";
         char[] opStack = new char[100];// 初始化栈
@@ -231,13 +236,58 @@ public class HexCalculator {
     public String Result(String[] str) {
         String[] Result = new String[100];// 顺序存储的栈，数据类型为字符串
         int Top = -1;// 静态指针Top
+
+//        for (int i = 0; str[i] != null; i++) {     //判断数字中是否出现多个小数点的异常输入
+//            int dotNum=0;
+//            if ("+-*÷%√²—".indexOf(str[i]) < 0) {
+//                for(int j=0;j<str[i].length();j++)
+//                {
+//                    if(".".indexOf(str[i].charAt(j))>=0) {
+//                        dotNum++;
+//                        if(".".indexOf(str[i].charAt(0))>=0)
+//                            return "ERROR";
+//                    }
+//                }
+//                if(dotNum>1)
+//                    return "ERROR";
+//
+//            }
+//        }
+
+//        for (int i = 0; str[i] != null; i++) {     //若数字以0开头则自动去掉开头的0
+//            int zeroNum=0;
+//            if ("+-*÷%√²—".indexOf(str[i]) < 0) {
+//                for(int j=0;j<str[i].length();j++)
+//                {
+//                    if("0".indexOf(str[i].charAt(j))>=0) {
+//                        zeroNum++;
+//                    }
+//
+//                    else
+//                    {
+//                        if(!str[i].contains(".")) {
+//                            str[i] = str[i].substring(zeroNum, str[i].length());
+//                        }
+//                        else{
+//                            str[i] = str[i].substring(zeroNum-1, str[i].length());
+//                        }
+//                        break;
+//                    }
+//                }
+
+
+//            }
+//        }
+
+
         for (int i = 0; str[i] != null; i++) {
-            if ("+-*÷—".indexOf(str[i]) < 0) {  //遇到数字，直接入栈
+            if ("+-*÷—".indexOf(str[i]) < 0) {
                 str[i]=HexToDec(str[i]);
                 Top++;
                 Result[Top] = str[i];
 
             }
+
             else if("—".indexOf(str[i]) >= 0)
             {
                 double x=0,n;

@@ -60,10 +60,33 @@ public class HexcalActivity extends AppCompatActivity {
         calculator = new HexCalculator();
         Toast t = Toast.makeText(getApplicationContext(), "错误输入", Toast.LENGTH_LONG);
 
-
         View.OnClickListener buttonlistener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                t_add.setEnabled(true);
+                t_sub.setEnabled(true);
+                t_multi.setEnabled(true);
+                t_div.setEnabled(true);
+                t_dot.setEnabled(true);
+                t_minus.setEnabled(true);
+                t_equal.setEnabled(true);
+
+                t_num0.setEnabled(true);
+                t_num1.setEnabled(true);
+                t_num2.setEnabled(true);
+                t_num3.setEnabled(true);
+                t_num4.setEnabled(true);
+                t_num5.setEnabled(true);
+                t_num6.setEnabled(true);
+                t_num7.setEnabled(true);
+                t_num8.setEnabled(true);
+                t_num9.setEnabled(true);
+                t_A.setEnabled(true);
+                t_B.setEnabled(true);
+                t_C.setEnabled(true);
+                t_D.setEnabled(true);
+                t_E.setEnabled(true);
+                t_F.setEnabled(true);
                 String show = ((Button) view).getText().toString();
                 calculator.process(show);
                 textView1.setText(calculator.getStr());
@@ -76,6 +99,39 @@ public class HexcalActivity extends AppCompatActivity {
                     calculator.clear();
                     textView1.setText(calculator.getStr());
                     textView_res.setText(calculator.getSres());
+                }
+
+                if(str.length()!=0&&"*÷+-%".indexOf(str.charAt(str.length()-1))>=0)
+                {
+                    t_add.setEnabled(false);
+                    t_sub.setEnabled(false);
+                    t_multi.setEnabled(false);
+                    t_div.setEnabled(false);
+                    t_dot.setEnabled(false);
+                    t_equal.setEnabled(false);
+                }
+                if(str.length()!=0&&"—".indexOf(str.charAt(str.length()-1))>=0)
+                {
+                    t_add.setEnabled(false);
+                    t_sub.setEnabled(false);
+                    t_multi.setEnabled(false);
+                    t_div.setEnabled(false);
+                    t_dot.setEnabled(false);
+                    t_equal.setEnabled(false);
+
+
+                }
+                if(str.length()!=0&&".".indexOf(str.charAt(str.length()-1))>=0)
+                {
+                    t_add.setEnabled(false);
+                    t_sub.setEnabled(false);
+                    t_multi.setEnabled(false);
+                    t_div.setEnabled(false);
+                    t_dot.setEnabled(false);
+                    t_minus.setEnabled(false);
+                    t_equal.setEnabled(false);
+
+
                 }
 
             }

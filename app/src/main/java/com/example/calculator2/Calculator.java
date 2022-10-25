@@ -11,9 +11,25 @@ import java.math.RoundingMode;
 public class Calculator {
     String str,res="ERROR";
 
+    public static BigDecimal sqrt(BigDecimal value, int scale){
+        BigDecimal num2 = BigDecimal.valueOf(2);
+        int precision = 100;
+        MathContext mc = new MathContext(precision, RoundingMode.HALF_UP);
+        BigDecimal deviation = value;
+        int cnt = 0;
+        while (cnt < precision) {
+            deviation = (deviation.add(value.divide(deviation, mc))).divide(num2, mc);
+            cnt++;
+        }
+        deviation = deviation.setScale(scale, BigDecimal.ROUND_HALF_UP);
+        return deviation;
+    }
+
     public Calculator() {
         clear();
     }
+
+
 
     public void process(String show) {
         if (!show.equals("=")) {
@@ -24,7 +40,13 @@ public class Calculator {
             }
             else if(show.equals("←"))
             {
-                str=str.substring(0,str.length()-1);
+                if(str.length()==0)
+                    str = "";
+                else
+                {
+                    str = str.substring(0, str.length() - 1);
+                    res = "";
+                }
             }
             else if(show.equals("—"))
             {
@@ -40,15 +62,24 @@ public class Calculator {
         else
         {
             int temp=0;
+            int leftbrNum=0,rightbrNum=0;
             for(int i=0;i<str.length();i++)
             {
                 if ("0123456789".indexOf(str.charAt(i)) >= 0)
                     temp=1;
             }
-            if(temp==0)
+            for(int i=0;i<str.length();i++)
+            {
+                if ("(".indexOf(str.charAt(i)) >= 0)
+                    leftbrNum++;
+                if (")".indexOf(str.charAt(i)) >= 0)
+                    rightbrNum++;
+            }
+            if(temp==0||(leftbrNum!=rightbrNum))
             {
                 res="ERROR";
             }
+
             else
             {
                 String[] postq = logic(str);
@@ -146,6 +177,50 @@ public class Calculator {
     public String Result(String[] str) {
         String[] Result = new String[100];// 顺序存储的栈，数据类型为字符串
         int Top = -1;// 静态指针Top
+
+        for (int i = 0; str[i] != null; i++) {     //判断数字中是否出现多个小数点的异常输入
+            int dotNum=0;
+            if ("+-*÷%√²—".indexOf(str[i]) < 0) {
+                for(int j=0;j<str[i].length();j++)
+                    {
+                        if(".".indexOf(str[i].charAt(j))>=0) {
+                            dotNum++;
+                            if(".".indexOf(str[i].charAt(0))>=0)
+                                return "ERROR";
+                        }
+                    }
+                if(dotNum>1)
+                    return "ERROR";
+
+            }
+        }
+
+        for (int i = 0; str[i] != null; i++) {     //若数字以0开头则自动去掉开头的0
+            int zeroNum=0;
+            if ("+-*÷%√²—".indexOf(str[i]) < 0) {
+                for(int j=0;j<str[i].length();j++)
+                {
+                    if("0".indexOf(str[i].charAt(j))>=0) {
+                        zeroNum++;
+                    }
+
+                    else
+                    {
+                        if(!str[i].contains(".")) {
+                            str[i] = str[i].substring(zeroNum, str[i].length());
+                        }
+                        else{
+                            str[i] = str[i].substring(zeroNum-1, str[i].length());
+                        }
+                        break;
+                    }
+                }
+
+
+            }
+        }
+
+
         for (int i = 0; str[i] != null; i++) {
             if ("+-*÷%√²—".indexOf(str[i]) < 0) {  //遇到数字，直接入栈
                 Top++;
@@ -154,84 +229,101 @@ public class Calculator {
             }
             else if("√²—".indexOf(str[i]) >= 0)//遇到平方和开方只出一个元素进行计算
             {
-                double x=0,n;
-                x = Double.parseDouble(Result[Top]);
+
+                BigDecimal bigx = new BigDecimal(Result[Top]);
+                BigDecimal bigz = new BigDecimal("0");
+                BigDecimal bign = new BigDecimal("0");
                 Top--;
 
                 if("—".indexOf(str[i])>=0)
                 {
-                    n=0-x;
+                    bign=bigz.subtract(bigx);
                     Top++;
-                    Result[Top]=String.valueOf(n);
+                    Result[Top]=String.valueOf(bign);
                 }
 
+                if("²".indexOf(str[i]) >= 0)
+                {
+
+                    bign=bigx.multiply(bigx);
+                    Top++;
+                    Result[Top]=String.valueOf(bign);
+
+                }
                 if("√".indexOf(str[i]) >= 0)
                 {
-                    if(x<0)
+                    if(bigx.compareTo(bigz)==-1)
                     {
                         return "ERROR";
                     }
                     else
                     {
-                        n=Math.sqrt(x);
-                        Top++;
-                        Result[Top]=String.valueOf(n);
+                        if(str[i+1]!=null&&"²".indexOf(str[i+1]) >= 0)
+                        {
+                            bign=bigx;
+                            Top++;
+                            Result[Top]=String.valueOf(bign);
+                            i++;
+
+                        }
+                        else
+                        {
+                            bign = sqrt(bigx,2);
+                            Top++;
+
+                            Result[Top] = String.valueOf(bign);
+                        }
                     }
                 }
-                if("²".indexOf(str[i]) >= 0)
-                {
 
-                    n=Math.pow(x,2);
-                    Top++;
-                    Result[Top]=String.valueOf(n);
-
-                }
 
 
 
             }
             else if ("+-*÷%".indexOf(str[i]) >= 0)// 遇到运算符字符，将栈顶两个元素出栈计算并将结果返回栈顶
             {
-                double x=0, y=0, n;
 
+                BigDecimal bigz = new BigDecimal(0);
+                BigDecimal bigx = new BigDecimal(Result[Top]);
+                Top--;
+                BigDecimal bigy = new BigDecimal(Result[Top]);
+                Top--;
+                BigDecimal bign= new BigDecimal("0");
 
-                x = Double.parseDouble(Result[Top]);
-                Top--;
-                y = Double.parseDouble(Result[Top]);
-                Top--;
 
                 if ("*".indexOf(str[i]) >= 0) {
-                    n = y * x;
+                    bign = bigy.multiply(bigx);
                     Top++;
-                    Result[Top] = String.valueOf(n);// 将运算结果重新入栈
+                    Result[Top] = String.valueOf(bign);// 将运算结果重新入栈
 
                 }
                 if ("÷".indexOf(str[i]) >= 0) {
-                    if (x == 0) {
+                    if (bigx.compareTo(bigz)==0) {
                         String s = "error!";
                         return s;
                     } else {
-                        n = y / x;
+                        bign = bigy.divide(bigx);
                         Top++;
-                        Result[Top] = String.valueOf(n);// 将运算结果重新入栈
+                        Result[Top] = String.valueOf(bign);// 将运算结果重新入栈
                     }
                 }
 
                 if ("-".indexOf(str[i]) >= 0) {
-                    n = y - x;
+                    bign = bigy.subtract(bigx);
                     Top++;
-                    Result[Top] = String.valueOf(n);// 将运算结果重新入栈
+                    Result[Top] = String.valueOf(bign);// 将运算结果重新入栈
                 }
                 if ("+".indexOf(str[i]) >= 0) {
-                    n = y + x;
+                    bign = bigy.add(bigx);
                     Top++;
-                    Result[Top] = String.valueOf(n);// 将运算结果重新入栈
+                    Result[Top] = String.valueOf(bign);// 将运算结果重新入栈
                 }
 
                 if ("%".indexOf(str[i]) >= 0) {
-                    n = y % x;
+                    BigDecimal[] results = bigy.divideAndRemainder(bigx);
+                    bign = results[1];
                     Top++;
-                    Result[Top] = String.valueOf(n);// 将运算结果重新入栈
+                    Result[Top] = String.valueOf(bign);// 将运算结果重新入栈
                 }
 
 
