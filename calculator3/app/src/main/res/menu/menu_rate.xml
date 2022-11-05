@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/normalcal"
+        android:title="标准计算器"
+        />
+    <item
+        android:id="@+id/Hexcal"
+        android:title="十六进制计算器"
+        />
+    <item
+        android:id="@+id/loancal"
+        android:title="车房贷计算器"
+        />
+    <item
+        android:id="@+id/unitcal"
+        android:title="单位计算器"
+        />
+    <item
+        android:id="@+id/complexcal"
+        android:title="复数计算器"
+        />
+</menu>
